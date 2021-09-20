@@ -22,8 +22,7 @@ services:
     web:
         container_name: kiwi_web
         depends_on:
-          db:
-            restart: on-failure
+          db
         restart: always
         image: docker.io/kiwitcms/kiwi:latest 
         ports:
@@ -37,6 +36,12 @@ services:
             KIWI_DB_NAME: kiwi
             KIWI_DB_USER: kiwi
             KIWI_DB_PASSWORD: kiwi
+              healthcheck:
+        test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$KIWI_DB_PASSWORD
+          interval: 10s
+          timeout: 5s
+          retries: 5
+
 
 volumes:
     db_data:
