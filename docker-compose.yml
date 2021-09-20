@@ -36,6 +36,9 @@ services:
             KIWI_DB_NAME: kiwi
             KIWI_DB_USER: kiwi
             KIWI_DB_PASSWORD: kiwi
+        depends_on:
+          - db
+            condition: service_completed_successfully
 
 volumes:
     db_data:
