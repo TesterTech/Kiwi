@@ -3,7 +3,7 @@ version: '2'
 services:
     db:
         container_name: kiwi_db
-        image: centos/mariadb-103-centos7
+        image: docker.io/centos/mariadb-103-centos7:latest
         volumes:
             - db_data:/var/lib/mysql/data
             # workaround for missing charset & collation support
@@ -24,7 +24,7 @@ services:
         depends_on:
             - db
         restart: always
-        image: kiwitcms/kiwi:latest
+        image: docker.io/kiwitcms/kiwi:latest 
         ports:
             - 80:8080
             - 443:8443
