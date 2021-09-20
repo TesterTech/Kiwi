@@ -23,7 +23,7 @@ services:
         container_name: kiwi_web
         depends_on:
           db:
-            condition: service_started
+            condition: service_healthy
         restart: always
         image: docker.io/kiwitcms/kiwi:latest 
         ports:
