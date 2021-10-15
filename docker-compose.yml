@@ -3,7 +3,7 @@ version: '2'
 services:
     db:
         container_name: kiwi_db
-        image: docker.io/centos/mariadb-103-centos7:latest
+        image: centos/mariadb-103-centos7
         volumes:
             - db_data:/var/lib/mysql/data
             # workaround for missing charset & collation support
@@ -22,12 +22,12 @@ services:
     web:
         container_name: kiwi_web
         depends_on:
-          db
+            - db
         restart: always
-        image: docker.io/kiwitcms/kiwi:latest 
+        image: kiwitcms/kiwi:latest
         ports:
-            - 80:8080
-            - 443:8443
+            - 8888:8080
+            - 8443:8443
         volumes:
             - uploads:/Kiwi/uploads:Z
         environment:
@@ -36,13 +36,8 @@ services:
             KIWI_DB_NAME: kiwi
             KIWI_DB_USER: kiwi
             KIWI_DB_PASSWORD: kiwi
-              healthcheck:
-        test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$KIWI_DB_PASSWORD
-          interval: 10s
-          timeout: 5s
-          retries: 5
-
 
 volumes:
     db_data:
     uploads:
+
